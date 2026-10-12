@@ -1,7 +1,8 @@
 /* Seven Icons POS — data layer (Supabase). Every write goes through a server function. */
 const CFG = window.POS_CONFIG || {};
 const sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY, {
-  auth:{ persistSession:true, autoRefreshToken:true, storageKey:'sipos-auth' }
+  auth:{ persistSession:true, autoRefreshToken:true, storageKey:'sipos-auth' },
+  db:{ schema:'pos' }   // the POS lives in its own schema, next to any other system in the same project
 });
 class ApiError extends Error{ constructor(code,raw){ super(code); this.code=code; this.raw=raw; } }
 function apiErr(error){
